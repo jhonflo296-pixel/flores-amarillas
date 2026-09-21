@@ -1,0 +1,9 @@
+{
+  "name": "flores-amarillas",
+  "version": "1.0.0",
+  "description": "Galaxia 3D de Flores Amarillas para Isabel",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  }
+}
