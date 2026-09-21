@@ -314,12 +314,32 @@ tick();
 
 // Arranque: la música recién empieza cuando se toca la pantalla
 const startScreen=document.getElementById('start-screen');
+const musicBtn=document.getElementById('music-btn');
+
 function startExperience(){
   startScreen.classList.add('hidden');
   setTimeout(()=>startScreen.style.display='none',800);
-  audio.play().catch(()=>{});
+  if(audio){
+    audio.play().then(()=>{
+      if(musicBtn) musicBtn.textContent='🎵';
+    }).catch(()=>{});
+  }
 }
 startScreen.addEventListener('click',startExperience);
+startScreen.addEventListener('touchend',startExperience,{passive:true});
+
+if(musicBtn){
+  musicBtn.addEventListener('click',(e)=>{
+    e.stopPropagation();
+    if(audio.paused){
+      audio.play().then(()=>{ musicBtn.textContent='🎵'; }).catch(()=>{});
+    } else {
+      audio.pause();
+      musicBtn.textContent='🔇';
+    }
+  });
+}
 </script>
+<button id="music-btn" style="position:fixed;bottom:20px;right:20px;z-index:100;background:rgba(255,215,0,0.25);border:1px solid rgba(255,215,0,0.6);border-radius:50%;width:44px;height:44px;color:#FFFACD;font-size:20px;cursor:pointer;backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;outline:none;box-shadow:0 0 10px rgba(255,215,0,0.4);" title="Pausar/Reanudar música">🎵</button>
 </body>
 </html>
