@@ -1,0 +1,14 @@
+runtime: nodejs20
+instance_class: F1
+
+handlers:
+  - url: /assets
+    static_dir: assets
+
+  - url: /(.*\.(html|css|js|png|mp3|json|svg))$
+    static_files: \1
+    upload: (.*\.(html|css|js|png|mp3|json|svg))$
+
+  - url: /.*
+    static_files: index.html
+    upload: index.html
